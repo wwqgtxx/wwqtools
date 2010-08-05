@@ -11,12 +11,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import net.sf.wei.wwqtools.calculator.Main;
 import net.sf.wei.wwqtools.wlog.paint.*;
 
 import com.swtdesigner.SWTResourceManager;
  
-public class PaiShell extends Shell {
+public class PaiShell extends Shell{
 	private static PrintName p = new PrintName(PaiShell.class);
 	private PaiCount c = new PaiCount();
 	private Text text;
@@ -26,10 +25,12 @@ public class PaiShell extends Shell {
 	 * Launch the application.
 	 * @param args
 	 */
-	public static void show() {
-		Display display = Display.getDefault();
-		Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {
-			public void run() {
+	
+
+		public static void show() {
+			Display display = Display.getDefault();
+			Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {
+				public void run() {
 				try {
 					Display display = Display.getDefault();
 					PaiShell shell = new PaiShell(display);
@@ -45,7 +46,9 @@ public class PaiShell extends Shell {
 				}
 			}
 		});
-	}
+		}
+	
+	
 
 	/**
 	 * Create the shell.
@@ -172,6 +175,7 @@ public class PaiShell extends Shell {
 		label_1.setText("   \u03C0\u7B49\u4E8E         \u9ED8\u8BA4\u4E3A3.14  ");
 		createContents();
 	}
+
 
 	/**
 	 * Create contents of the shell.

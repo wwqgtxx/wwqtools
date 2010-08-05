@@ -1,5 +1,8 @@
 package net.sf.wei.wwqtools.main.shell;
 
+import net.sf.wei.wwqtools.wlog.dialog.WlogDialog;
+import net.sf.wei.wwqtools.wlog.paint.PaintForm;
+
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -68,6 +71,19 @@ public class MainShell {
 		});
 		button_1.setBounds(119, 45, 80, 27);
 		button_1.setText("\u8BA1\u7B97\u03C0");
+		
+		Button btnDebug = new Button(shell, SWT.NONE);
+		btnDebug.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				WlogDialog win = new WlogDialog();
+				PaintForm pf = PaintForm.getNewPaintForm();
+				pf.setPaintForm(win);
+				win.open();						
+			}
+		});
+		btnDebug.setBounds(236, 45, 80, 27);
+		btnDebug.setText("Debug");
 
 		shell.open();
 		shell.layout();
