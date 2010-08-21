@@ -1,21 +1,21 @@
 package net.sf.wei.wwqtools.wlog.paint;
 
-import net.sf.wei.wwqtools.wlog.dialog.WlogDialog;
+import net.sf.wei.wwqtools.main.shell.MainShell;
 
 public class PaintForm {
 	private PaintForm() {}
 	
 	private static PaintForm pf = new PaintForm();
-	private WlogDialog w ;
+	private MainShell w ;
 	
 	public static PaintForm getNewPaintForm () {
 		return pf;
 	}
 	
-	public void setPaintForm (WlogDialog w) {
+	public void setPaintForm (MainShell w) {
 		this.w = w;
 	}
-	public WlogDialog getPaintForm () {
+	public MainShell getPaintForm () {
 		return w;
 	}
 }

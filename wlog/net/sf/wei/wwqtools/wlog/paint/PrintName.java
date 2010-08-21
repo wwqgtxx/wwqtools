@@ -1,6 +1,6 @@
 package net.sf.wei.wwqtools.wlog.paint;
 
-import net.sf.wei.wwqtools.wlog.dialog.WlogDialog;
+import net.sf.wei.wwqtools.main.shell.MainShell;
 
 public class PrintName {
 	
@@ -8,7 +8,7 @@ public class PrintName {
 	private static boolean can = true;
 	private PaintForm pf = PaintForm.getNewPaintForm();
 	private PaintSave ps = PaintSave.getPs();
-	private WlogDialog w = null;
+	private MainShell w = null;
 
 	
 	@SuppressWarnings("rawtypes")
@@ -21,7 +21,7 @@ public class PrintName {
 	}
 	public void paint(Object o) {
 		w = pf.getPaintForm();
-		String a = "("+s+")"+": "+ o ;
+		String a = "("+s+")"+": "+ o+"\r\n" ;
 		String b = ps.getS(); 
 		b=a+b;
 		ps.setS(b);
@@ -30,7 +30,7 @@ public class PrintName {
 			if (w != null) {
 				w.setText(b);
 			}			
-			System.out.println(a);
+			System.out.print(a);
 		}
 
 	}

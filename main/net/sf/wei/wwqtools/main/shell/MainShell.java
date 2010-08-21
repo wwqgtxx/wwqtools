@@ -1,20 +1,24 @@
 package net.sf.wei.wwqtools.main.shell;
 
-import net.sf.wei.wwqtools.wlog.dialog.WlogDialog;
-import net.sf.wei.wwqtools.wlog.paint.PaintForm;
+import net.sf.wei.wwqtools.wlog.paint.PaintSave;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 
 public class MainShell {
 
+	private Text txtDebug;
+	private PaintSave ps = PaintSave.getPs();
+
+	
+	
 	/**
 	 * Launch the application.
 	 * @param args
@@ -27,8 +31,9 @@ public class MainShell {
 	 */
 	public void open(final String[] args) {
 		Display display = Display.getDefault();
+		
 		Shell shell = new Shell();
-		shell.setSize(459, 397);
+		shell.setSize(715, 554);
 		shell.setText("\u738B\u4F1F\u5F3A\u5DE5\u5177\u5305 ");
 		
 		Menu menu = new Menu(shell, SWT.BAR);
@@ -56,7 +61,7 @@ public class MainShell {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				net.sf.wei.wwqtools.calculator.Main.open(args);
+				net.sf.wei.wwqtools.calculator.Start.open(args);
 			}
 		});
 		button.setBounds(27, 45, 80, 27);
@@ -72,19 +77,22 @@ public class MainShell {
 		button_1.setBounds(119, 45, 80, 27);
 		button_1.setText("\u8BA1\u7B97\u03C0");
 		
-		Button btnDebug = new Button(shell, SWT.NONE);
-		btnDebug.addSelectionListener(new SelectionAdapter() {
+		Button button_2 = new Button(shell, SWT.NONE);
+		button_2.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				WlogDialog win = new WlogDialog();
-				PaintForm pf = PaintForm.getNewPaintForm();
-				pf.setPaintForm(win);
-				win.open();						
+			public void widgetSelected(SelectionEvent e) {System.exit(1);
 			}
 		});
-		btnDebug.setBounds(236, 45, 80, 27);
-		btnDebug.setText("Debug");
+		button_2.setBounds(586, 172, 80, 27);
+		button_2.setText("\u5173\u95ED");
 
+		txtDebug = new Text(shell, SWT.BORDER | SWT.READ_ONLY | SWT.MULTI| SWT.WRAP);
+		txtDebug.setText("Debug");
+		txtDebug.setBounds(10, 222, 661, 252);
+		
+		String b = ps.getS(); 
+		txtDebug.setText(b);
+		
 		shell.open();
 		shell.layout();
 		while (!shell.isDisposed()) {
@@ -92,5 +100,9 @@ public class MainShell {
 				display.sleep();
 			}
 		}
+	}
+	
+	public void setText(String s) {
+		txtDebug.setText(s);
 	}
 }
