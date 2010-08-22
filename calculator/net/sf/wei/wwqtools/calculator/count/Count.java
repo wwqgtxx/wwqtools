@@ -1,5 +1,7 @@
 package net.sf.wei.wwqtools.calculator.count;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.math.BigInteger;
 
 import net.sf.wei.wwqtools.wlog.paint.PrintName;
@@ -38,7 +40,15 @@ public class Count {
 	}
 	
 	public BigInteger deleteNumber() {
-		return p(n.deleteNumber());	
+		try{
+			return p(n.deleteNumber());	
+		}
+		catch(ArithmeticException e){
+			p.paintErr(e);
+
+			return BigInteger.ZERO;
+		}
+		
 	}
 	
 	public BigInteger removeAllNumber() {
@@ -124,13 +134,20 @@ public class Count {
 		if(now == 4) {
 			BigInteger b = n.returnNumber();
 			BigInteger a = n2.returnNumber();
-			BigInteger c = a.divide(b);
-			n.deleteNumber();
-			n2.deleteNumber();
-			n.addNumber(c);
-			BigInteger r = n.returnNumber();
-			p.paint(r);
-			return r;
+			try{
+				BigInteger c = a.divide(b);
+				n.deleteNumber();
+				n2.deleteNumber();
+				n.addNumber(c);
+				BigInteger r = n.returnNumber();
+				p.paint(r);
+				return r;
+			}
+			catch(ArithmeticException e){
+				return BigInteger.ZERO;
+			}
+			
+			
 		}
 		else {
 			return BigInteger.ZERO;

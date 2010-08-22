@@ -2,9 +2,12 @@ package net.sf.wei.wwqtools.pai;
 
 import java.math.BigDecimal;
 
+import net.sf.wei.wwqtools.wlog.paint.PrintName;
+
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
@@ -13,15 +16,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import net.sf.wei.wwqtools.wlog.paint.*;
-
 import com.swtdesigner.SWTResourceManager;
  
 public class PaiShell extends Shell{
 	private static PrintName p = new PrintName(PaiShell.class);
 	private PaiCount c = new PaiCount();
 	private Text text;
-	private Text text_1;
+	private StyledText text_1;
 	private Text txtDpaitxt;
 	private Text txtPaitxt;
 
@@ -85,7 +86,8 @@ public class PaiShell extends Shell{
 		label.setBounds(326, 30, 39, 18);
 		label.setText("\u6B21\u03C0");
 		
-		text_1 = new Text(this, SWT.BORDER | SWT.READ_ONLY | SWT.MULTI| SWT.WRAP);
+		text_1 = new StyledText(this, SWT.BORDER | SWT.FULL_SELECTION | SWT.READ_ONLY | SWT.WRAP| SWT.MULTI| SWT.H_SCROLL
+		        | SWT.V_SCROLL);
 		text_1.setBounds(10, 10, 185, 246);
 		
 		Button button = new Button(this, SWT.NONE);

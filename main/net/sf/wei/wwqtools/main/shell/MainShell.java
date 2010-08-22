@@ -1,10 +1,19 @@
 package net.sf.wei.wwqtools.main.shell;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.wei.wwqtools.wlog.paint.PaintSave;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.LineStyleEvent;
+import org.eclipse.swt.custom.LineStyleListener;
+import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
@@ -14,10 +23,11 @@ import org.eclipse.swt.widgets.Text;
 
 public class MainShell {
 
-	private Text txtDebug;
+	private StyledText txtDebug;
 	private PaintSave ps = PaintSave.getPs();
+	public static Color red;
 
-	
+
 	
 	/**
 	 * Launch the application.
@@ -31,6 +41,7 @@ public class MainShell {
 	 */
 	public void open(final String[] args) {
 		Display display = Display.getDefault();
+		red= display.getSystemColor(SWT.COLOR_RED);
 		
 		Shell shell = new Shell();
 		shell.setSize(715, 554);
@@ -85,13 +96,14 @@ public class MainShell {
 		});
 		button_2.setBounds(586, 172, 80, 27);
 		button_2.setText("\u5173\u95ED");
-
-		txtDebug = new Text(shell, SWT.BORDER | SWT.READ_ONLY | SWT.MULTI| SWT.WRAP);
-		txtDebug.setText("Debug");
-		txtDebug.setBounds(10, 222, 661, 252);
-		
+	
+		txtDebug = new StyledText(shell, SWT.BORDER | SWT.FULL_SELECTION | SWT.READ_ONLY | SWT.WRAP| SWT.MULTI| SWT.H_SCROLL
+		        | SWT.V_SCROLL);
+		txtDebug.setBounds(10, 210, 679, 276);
 		String b = ps.getS(); 
 		txtDebug.setText(b);
+
+		ps.setTxtDebug(txtDebug);
 		
 		shell.open();
 		shell.layout();
@@ -101,7 +113,8 @@ public class MainShell {
 			}
 		}
 	}
-	
+
+
 	public void setText(String s) {
 		txtDebug.setText(s);
 	}

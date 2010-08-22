@@ -28,14 +28,19 @@ public class Number {
 		
 	}
 	
-	public BigInteger deleteNumber() {
+	public BigInteger deleteNumber() throws ArithmeticException{
 		BigInteger b = a.remainder(a);
 		a=a.subtract(b);
+
 		a=a.divide(BigInteger.TEN);
-		
-		
 		p.paint(a);
+			
+		return a;
+
+
 		
-		return a;		
+		
+		
+				
 	}
 }
