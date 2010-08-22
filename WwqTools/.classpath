@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="calculator"/>
+	<classpathentry kind="src" path="main"/>
+	<classpathentry kind="src" path="pai"/>
+	<classpathentry kind="src" path="wlog"/>
+	<classpathentry kind="src" path="sort"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.osgi_3.6.0.v20100301.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.osgi.source_3.6.0.v20100301.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.core.commands_3.6.0.I20100122-0800.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.core.commands.source_3.6.0.I20100122-0800.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.equinox.common_3.6.0.v20100222.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.equinox.common.source_3.6.0.v20100222.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.equinox.registry_3.5.0.v20100301.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.equinox.registry.source_3.5.0.v20100301.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.core.runtime_3.6.0.v20091204.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.core.runtime.source_3.6.0.v20091204.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.text_3.5.0.v20100308-1800.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.text.source_3.5.0.v20100308-1800.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.swt.win32.win32.x86_3.6.0.v3637e.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.swt.win32.win32.x86.source_3.6.0.v3637e.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.jface_3.6.0.I20100305-0800.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.jface.source_3.6.0.I20100305-0800.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.jface.text_3.6.0.v20100308-1800.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.jface.text.source_3.6.0.v20100308-1800.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.ui.workbench_3.6.0.I20100310-1300b.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.ui.workbench.source_3.6.0.I20100310-1300b.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/com.ibm.icu_4.2.1.v20100212.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/com.ibm.icu.source_4.2.1.v20100212.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.ui.forms_3.5.0.v20100301.jar" sourcepath="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.ui.forms.source_3.5.0.v20100301.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.core.databinding.observable_1.3.0.I20100310-1300.jar"/>
+	<classpathentry kind="lib" path="D:/java/eclipse/Eclipse3.6/plugins/org.eclipse.jface.databinding_1.4.0.I20100310-1300.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
