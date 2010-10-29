@@ -12,24 +12,38 @@ public class SqrtCount {
 
 	public static void count(String text) {
 		BigDecimal num = new BigDecimal(text);
-		int z[] =find(num);
-		for(int a:z){
-			System.out.print(a+"  ");
+		p.paint(Math.sqrt(Double.valueOf(num.toString())));
+		BigDecimal nnn = new BigDecimal(1);
+		nnn = run(num,nnn,new BigDecimal(1));
+		nnn = run(num,nnn,new BigDecimal(0.1));
+
+
+	}
+	
+	public static BigDecimal run(BigDecimal num,BigDecimal nnn,BigDecimal c){
+		BigDecimal z[] =find(num,nnn,c);
+		BigDecimal nnnx = z[0];
+		for(BigDecimal a:z){
+			System.out.print(a.toString()+"  ");
+			System.out.println();
 		}
+		System.out.println();
+		return nnnx;
+		
 	}
 
-	public static int[] find(BigDecimal num){
-		
-		for(int a=1,b=2;;){
-			BigDecimal s_a=new BigDecimal(a*a);
-			BigDecimal s_b=new BigDecimal(b*b);
+	public static BigDecimal[] find(BigDecimal num,BigDecimal a,BigDecimal c){
+		BigDecimal b = new BigDecimal(0);
+		while(true){
+			b=a.add(c);
+			BigDecimal s_a=a.multiply(a);
+			BigDecimal s_b=b.multiply(b);
 			if(whoBig(num,s_a)&&whoBig(s_b,num)){
 				//System.out.println(a+"     "+b);
-				int z[] ={a,b};
+				BigDecimal z[] ={a,b};
 				return z;
 			}
-			a=a+1;
-			b=b+1;
+			a=a.add(c);
 		}
 		
 		
