@@ -6,6 +6,7 @@
 	<classpathentry kind="src" path="pai"/>
 	<classpathentry kind="src" path="wlog"/>
 	<classpathentry kind="src" path="sort"/>
+	<classpathentry kind="src" path="sqrt"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="F:/eclipse/eclipse-jee-helios-SR1-win32/eclipse/plugins/org.eclipse.osgi_3.6.1.R36x_v20100806.jar" sourcepath="F:/eclipse/eclipse-jee-helios-SR1-win32/eclipse/plugins/org.eclipse.osgi_3.6.1.R36x_v20100806.jar"/>
@@ -22,7 +23,5 @@
 	<classpathentry kind="lib" path="F:/eclipse/eclipse-jee-helios-SR1-win32/eclipse/plugins/org.eclipse.ui.forms_3.5.2.r36_v20100702.jar" sourcepath="F:/eclipse/eclipse-jee-helios-SR1-win32/eclipse/plugins/org.eclipse.ui.forms_3.5.2.r36_v20100702.jar"/>
 	<classpathentry kind="lib" path="F:/eclipse/eclipse-jee-helios-SR1-win32/eclipse/plugins/org.eclipse.core.databinding.observable_1.3.0.I20100601-0800.jar" sourcepath="F:/eclipse/eclipse-jee-helios-SR1-win32/eclipse/plugins/org.eclipse.core.databinding.observable_1.3.0.I20100601-0800.jar"/>
 	<classpathentry kind="lib" path="F:/eclipse/eclipse-jee-helios-SR1-win32/eclipse/plugins/org.eclipse.jface.databinding_1.4.0.I20100601-0800.jar" sourcepath="F:/eclipse/eclipse-jee-helios-SR1-win32/eclipse/plugins/org.eclipse.jface.databinding_1.4.0.I20100601-0800.jar"/>
-
-	
 	<classpathentry kind="output" path="bin"/>
 </classpath>

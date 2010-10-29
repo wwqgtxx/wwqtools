@@ -119,8 +119,22 @@ public class MainShell {
 		btndebug_1.setText("\u4E0D\u663E\u793ADEBUG");
 		
 		Button button_3 = new Button(shell, SWT.NONE);
+		button_3.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {net.sf.wwqtools.sqrt.SqrtShell.show(args);
+			}
+		});
 		button_3.setBounds(215, 45, 80, 27);
-		button_3.setText("\u7ED9\u6570\u6392\u5E8F");
+		button_3.setText("\u8BA1\u7B97\u5E73\u65B9\u6839");
+		
+		Button button_4 = new Button(shell, SWT.NONE);
+		button_4.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		button_4.setText("\u7ED9\u6570\u6392\u5E8F");
+		button_4.setBounds(312, 45, 80, 27);
 				
 		shell.open();
 		shell.layout();
