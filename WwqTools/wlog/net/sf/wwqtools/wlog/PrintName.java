@@ -5,20 +5,10 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import net.sf.wwqtools.main.shell.MainShell;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
-
 public class PrintName {
 	
 	private String s;
 	private static boolean can = true;
-	private PaintForm pf = PaintForm.getNewPaintForm();
-	private PaintSave ps = PaintSave.getPs();
-	private MainShell w = null;
 	private static final String INFO = "   "+"[INFO]"+"   ";
 	private static final String ERR = "   "+"[ERROR]"+"   ";
 	private static final String RN = "\r\n";
@@ -40,14 +30,7 @@ public class PrintName {
 	}
 	
 	private void paintTo(String x,String n,Object o) {
-		w = pf.getPaintForm();
 		String a = getTime()+x+"("+s+")"+": "+ o+n ;
-		String b = ps.getS(); 
-		b=a+b;
-		ps.setS(b);
-		if (w != null) {
-			w.setText(b);
-		}
 		if(can == true) {
 			if(x.equals(ERR)){
 				System.err.print(a);

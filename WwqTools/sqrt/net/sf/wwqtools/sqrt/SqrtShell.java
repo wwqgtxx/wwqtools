@@ -55,7 +55,7 @@ public class SqrtShell extends Shell {
 			public void widgetSelected(SelectionEvent e) {text_o.setText(SqrtCount.count(text.getText(),text_1.getText()));
 			}
 		});
-		button.setBounds(166, 142, 80, 27);
+		button.setBounds(166, 133, 80, 27);
 		button.setText("\u8BA1\u7B97\u5E73\u65B9\u6839");
 		
 		text_1 = new Text(this, SWT.BORDER);
@@ -66,11 +66,12 @@ public class SqrtShell extends Shell {
 		label_1.setBounds(34, 87, 50, 17);
 		label_1.setText("\u7CBE\u786E\u5EA6");
 		
-		text_o = new Text(this, SWT.BORDER | SWT.READ_ONLY);
-		text_o.setBounds(10, 189, 414, 23);
+		text_o = new Text(this,  SWT.BORDER | SWT.FULL_SELECTION | SWT.READ_ONLY | SWT.WRAP| SWT.MULTI| SWT.H_SCROLL
+		        | SWT.V_SCROLL);
+		text_o.setBounds(10, 175, 414, 84);
 		
 		Label label_2 = new Label(this, SWT.CENTER);
-		label_2.setBounds(10, 235, 414, 17);
+		label_2.setBounds(10, 265, 414, 17);
 		label_2.setText("\u8BA1\u7B97\u8FC7\u7A0B\u4E2D\u7A0B\u5E8F\u4F1A\u7528\u5047\u6B7B\u73B0\u8C61\uFF0C\u656C\u8BF7\u8C05\u89E3\u3002");
 		createContents();
 	}
@@ -80,12 +81,12 @@ public class SqrtShell extends Shell {
 	 */
 	protected void createContents() {
 		setText("\u8BA1\u7B97\u5E73\u65B9\u6839");
-		setSize(450, 300);
+		setSize(450, 330);
 
 	}
 
 	@Override
 	protected void checkSubclass() {
-		// Disable the check that prevents subclassing of SWT components
+		
 	}
 }

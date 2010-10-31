@@ -1,9 +1,7 @@
 package net.sf.wwqtools.main.shell;
 
-import net.sf.wwqtools.wlog.PaintSave;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
@@ -14,9 +12,6 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
 public class MainShell {
-
-	private StyledText txtDebug;
-	private PaintSave ps = PaintSave.getPs();
 	public static Color red;
 
 
@@ -81,42 +76,7 @@ public class MainShell {
 		});
 		button_2.setBounds(398, 205, 80, 27);
 		button_2.setText("\u5173\u95ED");
-	
-		txtDebug = new StyledText(shell, SWT.BORDER | SWT.FULL_SELECTION | SWT.READ_ONLY | SWT.WRAP| SWT.MULTI| SWT.H_SCROLL
-		        | SWT.V_SCROLL);
-		txtDebug.setBounds(10, 210, 679, 276);
-		String b = ps.getS(); 
-		txtDebug.setText(b);
-		
-		txtDebug.setVisible(false);
 
-		ps.setTxtDebug(txtDebug);
-		
-		Button btndebug = new Button(shell, SWT.NONE);
-		btndebug.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				txtDebug.setVisible(true);
-				shell.setSize(715, 554);
-				button_2.setBounds(588, 161, 80, 27);
-				shell.redraw();
-			}
-		});
-		btndebug.setBounds(43, 130, 80, 35);
-		btndebug.setText("\u663E\u793ADEBUG");
-		
-		Button btndebug_1 = new Button(shell, SWT.NONE);
-		btndebug_1.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				txtDebug.setVisible(false);
-				shell.setSize(518, 312);
-				button_2.setBounds(398, 205, 80, 27);
-				shell.redraw();
-			}
-		});
-		btndebug_1.setBounds(143, 130, 90, 35);
-		btndebug_1.setText("\u4E0D\u663E\u793ADEBUG");
 		
 		Button button_3 = new Button(shell, SWT.NONE);
 		button_3.addSelectionListener(new SelectionAdapter() {
@@ -148,7 +108,4 @@ public class MainShell {
 	}
 
 
-	public void setText(String s) {
-		txtDebug.setText(s);
-	}
 }
