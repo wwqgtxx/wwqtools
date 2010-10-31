@@ -51,8 +51,7 @@ public class MainShell {
 		Button button = new Button(shell, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				net.sf.wwqtools.calculator.Start.open(args);
+			public void widgetSelected(SelectionEvent e) {net.sf.wwqtools.calculator.Start.open(args);
 			}
 		});
 		button.setBounds(27, 45, 80, 27);
@@ -61,8 +60,7 @@ public class MainShell {
 		Button button_1 = new Button(shell, SWT.NONE);
 		button_1.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				net.sf.wwqtools.pai.PaiShell.show();
+			public void widgetSelected(SelectionEvent e) {net.sf.wwqtools.pai.PaiShell.show();
 			}
 		});
 		button_1.setBounds(119, 45, 80, 27);
@@ -97,8 +95,15 @@ public class MainShell {
 		button_4.setBounds(312, 45, 80, 27);
 		
 		Button button_5 = new Button(shell, SWT.NONE);
+		button_5.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {net.sf.wwqtools.square.SquareShell.show();
+			}
+		});
 		button_5.setBounds(27, 85, 80, 27);
 		button_5.setText("\u8BA1\u7B97\u5E73\u65B9\u8868");
+		
+
 				
 		shell.open();
 		shell.layout();
