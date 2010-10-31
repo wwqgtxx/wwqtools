@@ -21,6 +21,8 @@ public class PrintName {
 	private MainShell w = null;
 	private static final String INFO = "   "+"[INFO]"+"   ";
 	private static final String ERR = "   "+"[ERROR]"+"   ";
+	private static final String RN = "\r\n";
+	private static final String NULL = "";
 
 	
 	@SuppressWarnings("rawtypes")
@@ -37,9 +39,9 @@ public class PrintName {
 		  return df.format(new Date());
 	}
 	
-	private void paintTo(String x,Object o) {
+	private void paintTo(String x,String n,Object o) {
 		w = pf.getPaintForm();
-		String a = getTime()+x+"("+s+")"+": "+ o+"\r\n" ;
+		String a = getTime()+x+"("+s+")"+": "+ o+n ;
 		String b = ps.getS(); 
 		b=a+b;
 		ps.setS(b);
@@ -50,6 +52,12 @@ public class PrintName {
 			if(x.equals(ERR)){
 				System.err.print(a);
 			}
+			else if(x.equals(NULL)){
+				System.out.print(o);
+			}
+			else if(o.toString().equals(NULL)){
+				System.out.println();
+			}
 			else{
 				System.out.print(a);
 			}
@@ -59,7 +67,11 @@ public class PrintName {
 	}
 	
 	public void paint(Object o){
-		paintTo(INFO,o);
+		paintTo(INFO,RN,o);
+	}
+	
+	public void paintDhl(Object o){
+		paintTo(INFO,NULL,o);
 	}
 	
 	public void paintErr(Exception e){
@@ -73,7 +85,7 @@ public class PrintName {
 		e.printStackTrace(pw); 
 		String se =(sw.toString()); 
 		
-		paintTo(ERR,se);
+		paintTo(ERR,RN,se);
 
 		
 	}
