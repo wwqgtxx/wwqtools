@@ -3,11 +3,12 @@ package net.sf.wwqtools.pai;
 import java.math.BigDecimal;
 
 import net.sf.wwqtools.wlog.PrintName;
+import net.sf.wwqtools.writer.FileWrite;
 
 public class PaiCount implements Runnable{
 	private static PrintName p = new PrintName(PaiCount.class);	
 	private PaiSave ps = PaiSave.getPs();
-	private PaiWrite pw = PaiWrite.getWt();
+	private FileWrite pw = FileWrite.getWt();
 	
 	public BigDecimal setPie(BigDecimal pie) {
 		ps.setPie(pie);

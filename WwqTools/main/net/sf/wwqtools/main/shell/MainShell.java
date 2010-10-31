@@ -27,26 +27,26 @@ public class MainShell {
 		shell.setSize(518, 312);
 		shell.setText("\u738B\u4F1F\u5F3A\u5DE5\u5177\u5305 ");
 		
-		Menu menu = new Menu(shell, SWT.BAR);
-		shell.setMenuBar(menu);
-		
-		MenuItem menuItem = new MenuItem(menu, SWT.NONE);
-		menuItem.setText("New Item");
-		
-		MenuItem menuItem_1 = new MenuItem(menu, SWT.NONE);
-		menuItem_1.setText("New Item");
-		
-		MenuItem menuItem_2 = new MenuItem(menu, SWT.NONE);
-		menuItem_2.setText("New Item");
-		
-		MenuItem menuItem_3 = new MenuItem(menu, SWT.NONE);
-		menuItem_3.setText("New Item");
-		
-		MenuItem menuItem_4 = new MenuItem(menu, SWT.NONE);
-		menuItem_4.setText("New Item");
-		
-		MenuItem menuItem_5 = new MenuItem(menu, SWT.NONE);
-		menuItem_5.setText("New Item");
+//		Menu menu = new Menu(shell, SWT.BAR);
+//		shell.setMenuBar(menu);
+//		
+//		MenuItem menuItem = new MenuItem(menu, SWT.NONE);
+//		menuItem.setText("New Item");
+//		
+//		MenuItem menuItem_1 = new MenuItem(menu, SWT.NONE);
+//		menuItem_1.setText("New Item");
+//		
+//		MenuItem menuItem_2 = new MenuItem(menu, SWT.NONE);
+//		menuItem_2.setText("New Item");
+//		
+//		MenuItem menuItem_3 = new MenuItem(menu, SWT.NONE);
+//		menuItem_3.setText("New Item");
+//		
+//		MenuItem menuItem_4 = new MenuItem(menu, SWT.NONE);
+//		menuItem_4.setText("New Item");
+//		
+//		MenuItem menuItem_5 = new MenuItem(menu, SWT.NONE);
+//		menuItem_5.setText("New Item");
 		
 		Button button = new Button(shell, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
@@ -95,6 +95,10 @@ public class MainShell {
 		});
 		button_4.setText("\u7ED9\u6570\u6392\u5E8F");
 		button_4.setBounds(312, 45, 80, 27);
+		
+		Button button_5 = new Button(shell, SWT.NONE);
+		button_5.setBounds(27, 85, 80, 27);
+		button_5.setText("\u8BA1\u7B97\u5E73\u65B9\u8868");
 				
 		shell.open();
 		shell.layout();
@@ -106,6 +110,4 @@ public class MainShell {
 			}
 		}
 	}
-
-
 }

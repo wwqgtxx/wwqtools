@@ -1,4 +1,4 @@
-package net.sf.wwqtools.pai;
+package net.sf.wwqtools.writer;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,13 +6,13 @@ import java.math.BigDecimal;
 
 import net.sf.wwqtools.wlog.PrintName;
 
-public class PaiWrite {
+public class FileWrite {
 	
-	private static PrintName p = new PrintName(PaiWrite.class);
+	private static PrintName p = new PrintName(FileWrite.class);
 	
-	private PaiWrite() {}
+	private FileWrite() {}
 	
-	private static final PaiWrite pw = new PaiWrite();
+	private static final FileWrite pw = new FileWrite();
 	
 	public String a = "";
 	public String b = "";
@@ -34,7 +34,7 @@ public class PaiWrite {
 		b=s;
 		
 	}
-	public static PaiWrite getWt() {
+	public static FileWrite getWt() {
 		return pw;
 	}
 }
