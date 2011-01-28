@@ -23,6 +23,5 @@
 	<classpathentry kind="lib" path="SWT/org.eclipse.ui.workbench_3.6.1.M20100826-1330.jar"/>
 	<classpathentry kind="lib" path="lib/WLogging-1.0.0-with-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_23"/>
-	<classpathentry kind="lib" path="lib/ReadXml-1.0.0-with-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
