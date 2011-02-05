@@ -2,13 +2,12 @@ package net.sf.wwqtools.calculator.count;
 
 import java.math.BigInteger;
 
-import net.sf.wlogging.PrintName;
+import net.sf.wlogging.PrintName.paint;
 
 public class Count {
-	private static PrintName p = new PrintName(Count.class);
 	private Number n = new Number();
-	private Number n2 = new Number(); 
-	
+	private Number n2 = new Number();
+
 	/**
 	 * now = 0 = no
 	 * 
@@ -22,50 +21,49 @@ public class Count {
 	 * 
 	 */
 	private int now;
-	
+
 	public BigInteger p(BigInteger a) {
 		BigInteger r = a;
-		p.paint(r);
-		return r;	
+		paint.debug(r);
+		return r;
 	}
-	
+
 	public BigInteger addNumber(BigInteger a) {
 		return p(n.addNumber(a));
 	}
-	
+
 	public BigInteger returnNumber() {
 		return p(n.returnNumber());
 	}
-	
+
 	public BigInteger deleteNumber() {
-		try{
-			return p(n.deleteNumber());	
-		}
-		catch(ArithmeticException e){
-			p.paintErr(e);
+		try {
+			return p(n.deleteNumber());
+		} catch (ArithmeticException e) {
+			paint.warn(e);
 
 			return BigInteger.ZERO;
 		}
-		
+
 	}
-	
+
 	public BigInteger removeAllNumber() {
 		n = new Number();
 		n2 = new Number();
 		now = 0;
-		return p(n.returnNumber());		
+		return p(n.returnNumber());
 	}
-	
+
 	public BigInteger removeAllNumber1() {
 		n = new Number();
-		return p(n.returnNumber());		
+		return p(n.returnNumber());
 	}
 
 	public BigInteger eliminate() {
 		equrs();
 		now = 4;
 		n2 = n;
-		p.paint(now);
+		paint.debug(now);
 		return removeAllNumber1();
 	}
 
@@ -73,7 +71,7 @@ public class Count {
 		equrs();
 		now = 3;
 		n2 = n;
-		p.paint(now);
+		paint.debug(now);
 		return removeAllNumber1();
 	}
 
@@ -81,7 +79,7 @@ public class Count {
 		equrs();
 		now = 2;
 		n2 = n;
-		p.paint(now);
+		paint.debug(now);
 		return removeAllNumber1();
 	}
 
@@ -89,13 +87,13 @@ public class Count {
 		equrs();
 		now = 1;
 		n2 = n;
-		p.paint(now);
+		paint.debug(now);
 		return removeAllNumber1();
 	}
 
 	public BigInteger equrs() {
-		p.paint(now);
-		if(now == 1) {
+		paint.debug(now);
+		if (now == 1) {
 			BigInteger b = n.returnNumber();
 			BigInteger a = n2.returnNumber();
 			BigInteger c = a.add(b);
@@ -103,10 +101,10 @@ public class Count {
 			n2.deleteNumber();
 			n.addNumber(c);
 			BigInteger r = n.returnNumber();
-			p.paint(r);
+			paint.debug(r);
 			return r;
 		}
-		if(now == 2) {
+		if (now == 2) {
 			BigInteger b = n.returnNumber();
 			BigInteger a = n2.returnNumber();
 			BigInteger c = a.subtract(b);
@@ -114,11 +112,11 @@ public class Count {
 			n2.deleteNumber();
 			n.addNumber(c);
 			BigInteger r = n.returnNumber();
-			p.paint(r);
+			paint.debug(r);
 			return r;
 		}
-		if(now == 3) {
-			
+		if (now == 3) {
+
 			BigInteger b = n.returnNumber();
 			BigInteger a = n2.returnNumber();
 			BigInteger c = a.multiply(b);
@@ -126,28 +124,25 @@ public class Count {
 			n2.deleteNumber();
 			n.addNumber(c);
 			BigInteger r = n.returnNumber();
-			p.paint(r);
+			paint.debug(r);
 			return r;
 		}
-		if(now == 4) {
+		if (now == 4) {
 			BigInteger b = n.returnNumber();
 			BigInteger a = n2.returnNumber();
-			try{
+			try {
 				BigInteger c = a.divide(b);
 				n.deleteNumber();
 				n2.deleteNumber();
 				n.addNumber(c);
 				BigInteger r = n.returnNumber();
-				p.paint(r);
+				paint.debug(r);
 				return r;
-			}
-			catch(ArithmeticException e){
+			} catch (ArithmeticException e) {
 				return BigInteger.ZERO;
 			}
-			
-			
-		}
-		else {
+
+		} else {
 			return BigInteger.ZERO;
 		}
 	}

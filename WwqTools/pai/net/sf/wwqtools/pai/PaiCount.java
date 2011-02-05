@@ -2,17 +2,16 @@ package net.sf.wwqtools.pai;
 
 import java.math.BigDecimal;
 
-import net.sf.wlogging.PrintName;
+import net.sf.wlogging.PrintName.paint;
 import net.sf.wwqtools.writer.FileWrite;
 
 public class PaiCount implements Runnable {
-	private static PrintName p = new PrintName(PaiCount.class);
 	private PaiSave ps = PaiSave.getPs();
 	private FileWrite pw = FileWrite.getWt();
 
 	public BigDecimal setPie(BigDecimal pie) {
 		ps.setPie(pie);
-		p.paint(pie);
+		paint.debug(pie);
 		return pie;
 	}
 
@@ -23,7 +22,7 @@ public class PaiCount implements Runnable {
 	}
 
 	public void count(Integer i) {
-		p.paint(ps.getCount());
+		paint.debug(ps.getCount());
 		BigDecimal pie = ps.getPie();
 		String rt = "\r\n";
 		String xx = "*************";
@@ -31,7 +30,7 @@ public class PaiCount implements Runnable {
 		String s;
 		String so;
 		BigDecimal dt;
-		p.paint(i);
+		paint.debug(i);
 		int b = 1;
 		s = "从1到" + i + "的π相乘，π等于" + pie + rt;
 		for (int a = i, c = 1, d = 1, e = 1; a > 0; c++, a--, b++, e++) {
@@ -45,9 +44,9 @@ public class PaiCount implements Runnable {
 			ps.setB(b);
 
 			so = s;
-			p.paint(b);
+			paint.debug(b);
 			dt = pie.multiply(new BigDecimal(b));
-			p.paint(dt.toString());
+			paint.debug(dt.toString());
 			st = dt.toString();
 			s = so + rt + b + "π = " + st;
 
@@ -89,7 +88,6 @@ public class PaiCount implements Runnable {
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

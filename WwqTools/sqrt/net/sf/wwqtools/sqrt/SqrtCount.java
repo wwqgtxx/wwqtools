@@ -2,11 +2,9 @@ package net.sf.wwqtools.sqrt;
 
 import java.math.BigDecimal;
 
-import net.sf.wlogging.PrintName;
+import net.sf.wlogging.PrintName.paint;
 
 public class SqrtCount implements Runnable {
-
-	private static PrintName p = new PrintName(SqrtCount.class);
 
 	private static SqrtSave ss = SqrtSave.getSs();
 
@@ -22,12 +20,36 @@ public class SqrtCount implements Runnable {
 	@Override
 	public void run() {
 		setOk(false);
+		try {
+			look(ss.getText(), ss.getS_i());
+		} catch (IsNotNumberException e) {
+			// TODO Auto-generated catch block
+			System.err.println(e);
+		}
 		BigDecimal num = new BigDecimal(ss.getText());
 		int i = Integer.parseInt(ss.getS_i());
-		p.paint(sqrt(num));
-		p.paint(i);
+		paint.debug(sqrt(num));
+		paint.debug(i);
 		start(num, i + 1);
 		setOk(true);
+	}
+
+	private void look(String text, String s_i) throws IsNotNumberException {
+		if (isNumeric(text) == false) {
+			throw new IsNotNumberException("text");
+		}
+		if (isNumeric(s_i) == false) {
+			throw new IsNotNumberException("text");
+		}
+	}
+
+	public static boolean isNumeric(String str) {
+		for (int i = str.length(); --i >= 0;) {
+			int chr = str.charAt(i);
+			if (chr < 48 || chr > 57)
+				return false;
+		}
+		return true;
 	}
 
 	private String sqrt(BigDecimal num) {
@@ -77,7 +99,6 @@ public class SqrtCount implements Runnable {
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -90,8 +111,8 @@ public class SqrtCount implements Runnable {
 		BigDecimal z[] = find(num, nnn, c);
 		BigDecimal nnnx = z[0];
 		for (BigDecimal a : z) {
-			p.paintDhl(a.toString() + "  ");
-			p.paint("");
+			paint.debug(a.toString() + "  ");
+			// paint("");
 		}
 		System.out.println();
 		return nnnx;

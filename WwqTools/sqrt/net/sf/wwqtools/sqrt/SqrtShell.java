@@ -1,7 +1,5 @@
 package net.sf.wwqtools.sqrt;
 
-import net.sf.wlogging.PrintName;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -17,8 +15,6 @@ public class SqrtShell extends Shell {
 	private Text text;
 	private Text text_1;
 	private Text text_0;
-
-	private static PrintName p = new PrintName(SqrtShell.class);
 	private static SqrtSave ss = SqrtSave.getSs();
 	private Text text_00;
 

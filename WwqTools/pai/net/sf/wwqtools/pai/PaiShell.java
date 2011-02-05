@@ -2,7 +2,7 @@ package net.sf.wwqtools.pai;
 
 import java.math.BigDecimal;
 
-import net.sf.wlogging.PrintName;
+import net.sf.wlogging.PrintName.paint;
 
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -21,7 +21,6 @@ import org.eclipse.swt.widgets.Text;
 import com.swtdesigner.SWTResourceManager;
 
 public class PaiShell extends Shell {
-	private static PrintName p = new PrintName(PaiShell.class);
 	private PaiCount c = new PaiCount();
 	private Text text;
 	private StyledText text_1;
@@ -37,6 +36,7 @@ public class PaiShell extends Shell {
 	 */
 
 	public static void show() {
+		paint.start();
 		Display display = Display.getDefault();
 		Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {
 			public void run() {
@@ -281,8 +281,8 @@ public class PaiShell extends Shell {
 		c.setPath(txtDpaitxt.getText(), txtPaitxt.getText());
 		String s = text.getText();
 		Integer i = Integer.parseInt(s);
-		p.paint(s);
-		p.paint(i);
+		paint.debug(s);
+		paint.debug(i);
 		ps.setCount(i);
 		Thread thread = new Thread(new PaiCount());
 		thread.setDaemon(true);
@@ -300,7 +300,7 @@ public class PaiShell extends Shell {
 
 	private String setPie(String pie) {
 		c.setPie(new BigDecimal(pie));
-		p.paint(pie);
+		paint.debug(pie);
 		return pie;
 	}
 }

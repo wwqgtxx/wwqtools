@@ -1,20 +1,17 @@
 package net.sf.wwqtools.calculator;
 
-import net.sf.wlogging.PrintName;
+import net.sf.wlogging.PrintName.paint;
 import net.sf.wwqtools.calculator.form.MainForm;
 
-public class Start{
+public class Start {
 
-	private static PrintName p = new PrintName(Start.class);
-	
 	public static void open(String[] args) {
-		p.paint("start");	
+		paint.info("start");
 		try {
-			new MainForm().show();	
+			new MainForm().show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-
-} 
+}
