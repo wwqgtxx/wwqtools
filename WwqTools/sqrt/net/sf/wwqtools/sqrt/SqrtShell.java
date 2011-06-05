@@ -1,5 +1,8 @@
 package net.sf.wwqtools.sqrt;
 
+import net.sf.wwqtools.datasv.DataCache;
+import net.sf.wwqtools.datasv.DataFatory;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -15,7 +18,8 @@ public class SqrtShell extends Shell {
 	private Text text;
 	private Text text_1;
 	private Text text_0;
-	private static SqrtSave ss = SqrtSave.getSs();
+	private static DataCache dc = DataFatory.getMyDataCache();
+	// private static SqrtSave ss = SqrtSave.getSs();
 	private Text text_00;
 
 	/**
@@ -47,20 +51,22 @@ public class SqrtShell extends Shell {
 	public SqrtShell(Display display) {
 		super(display, SWT.SHELL_TRIM);
 		addShellListener(new ShellAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void shellClosed(ShellEvent e) {
-				if (ss.getThread() != null && ss.getThreadPaint() != null) {
-					if (ss.getThread().isAlive()
-							&& ss.getThreadPaint().isAlive()) {
-						ss.getThread().stop();
-						ss.getThreadPaint().stop();
+				if (dc.getThread("thread") != null
+						&& dc.getThread("threadPaint") != null) {
+					if ((dc.getThread("thread")).isAlive()
+							&& (dc.getThread("threadPaint")).isAlive()) {
+						(dc.getThread("thread")).stop();
+						(dc.getThread("threadPaint")).stop();
 
 					}
 				}
 
 			}
 		});
-		ss.setDisplay(display);
+		dc.put("display", display);
 
 		text = new Text(this, SWT.BORDER);
 		text.setText("2");
@@ -78,28 +84,29 @@ public class SqrtShell extends Shell {
 		text_00.setText("\u4F4D\u6570");
 		text_00.setBounds(11, 265, 132, 23);
 
-		ss.setText_0(text_0);
-		ss.setText_00(text_00);
+		dc.put("text_0", text_0);
+		dc.put("text_00", text_00);
 
 		Button button = new Button(this, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				try {
-					Integer.parseInt(text.getText());
-					Integer.parseInt(text_1.getText());
-				} catch (NumberFormatException e1) {
-					text_0.setText("数字多过大无法计算，最大只能为：" + Integer.MAX_VALUE);
-					return;
-				}
+				// try {
+				// Integer.parseInt(text.getText());
+				// Integer.parseInt(text_1.getText());
+				// } catch (NumberFormatException e1) {
+				// text_0.setText("数字多过大无法计算，最大只能为：" + Integer.MAX_VALUE);
+				// return;
+				// }
 
 				Thread thread = new Thread(new SqrtCount(text.getText(), text_1
 						.getText()));
 				Thread threadPaint = new Thread(
 						new SqrtCount().new PaintResult());
 
-				ss.setThread(thread);
-				ss.setThreadPaint(threadPaint);
+				dc.put("thread", thread);
+				dc.put("threadPaint", threadPaint);
+				dc.put("ok", false);
 
 				thread.setDaemon(true);
 				thread.start();

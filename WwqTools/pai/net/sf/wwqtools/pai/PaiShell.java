@@ -2,7 +2,9 @@ package net.sf.wwqtools.pai;
 
 import java.math.BigDecimal;
 
-import net.sf.wlogging.PrintName.paint;
+import net.sf.wlogging.old.PrintName.paint;
+import net.sf.wwqtools.datasv.DataCache;
+import net.sf.wwqtools.datasv.DataFatory;
 
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -21,10 +23,10 @@ import org.eclipse.swt.widgets.Text;
 import com.swtdesigner.SWTResourceManager;
 
 public class PaiShell extends Shell {
+	private DataCache dc = DataFatory.getMyDataCache();
 	private PaiCount c = new PaiCount();
 	private Text text;
 	private StyledText text_1;
-	private PaiSave ps = PaiSave.getPs();
 	private Text txtDpaitxt;
 	private Text txtPaitxt;
 	private Text text_11;
@@ -69,11 +71,12 @@ public class PaiShell extends Shell {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void shellClosed(ShellEvent e) {
-				if (ps.getThread() != null && ps.getThreadPaint() != null) {
-					if (ps.getThread().isAlive()
-							&& ps.getThreadPaint().isAlive()) {
-						ps.getThread().stop();
-						ps.getThreadPaint().stop();
+				if (dc.getThread("thread") != null
+						&& dc.getThread("threadPaint") != null) {
+					if ((dc.getThread("thread")).isAlive()
+							&& (dc.getThread("threadPaint")).isAlive()) {
+						(dc.getThread("thread")).stop();
+						(dc.getThread("threadPaint")).stop();
 
 					}
 				}
@@ -81,7 +84,7 @@ public class PaiShell extends Shell {
 			}
 		});
 
-		ps.setDisplay(display);
+		dc.put("display", display);
 
 		c.setPie(new BigDecimal("3.14"));
 
@@ -114,8 +117,8 @@ public class PaiShell extends Shell {
 		text_11 = new Text(this, SWT.BORDER);
 		text_11.setBounds(10, 262, 73, 23);
 
-		ps.setText_1(text_1);
-		ps.setText_11(text_11);
+		dc.put("text_1", text_1);
+		dc.put("text_11", text_11);
 
 		Button button = new Button(this, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
@@ -280,21 +283,26 @@ public class PaiShell extends Shell {
 	private void start() {
 		c.setPath(txtDpaitxt.getText(), txtPaitxt.getText());
 		String s = text.getText();
-		Integer i = Integer.parseInt(s);
-		paint.debug(s);
-		paint.debug(i);
-		ps.setCount(i);
-		Thread thread = new Thread(new PaiCount());
-		thread.setDaemon(true);
-		thread.setPriority(Thread.MIN_PRIORITY);
-		thread.start();
-		ps.setThread(thread);
+		try {
+			Integer i = Integer.parseInt(s);
+			paint.debug(s);
+			paint.debug(i);
 
-		Thread threadPaint = new Thread(new PaiCount().new PaintResult());
-		threadPaint.setDaemon(true);
-		threadPaint.start();
-		threadPaint.setPriority(Thread.MIN_PRIORITY);
-		ps.setThreadPaint(threadPaint);
+			dc.put("count", i);
+			Thread thread = new Thread(new PaiCount());
+			thread.setDaemon(true);
+			thread.setPriority(Thread.MIN_PRIORITY);
+			thread.start();
+			dc.put("thread", thread);
+
+			Thread threadPaint = new Thread(new PaiCount().new PaintResult());
+			threadPaint.setDaemon(true);
+			threadPaint.start();
+			threadPaint.setPriority(Thread.MIN_PRIORITY);
+			dc.put("threadPaint", threadPaint);
+		} catch (java.lang.NumberFormatException e) {
+			text_1.setText("超出运算范围，最大" + Integer.MAX_VALUE);
+		}
 
 	}
 

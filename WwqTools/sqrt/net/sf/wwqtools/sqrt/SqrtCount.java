@@ -2,15 +2,20 @@ package net.sf.wwqtools.sqrt;
 
 import java.math.BigDecimal;
 
-import net.sf.wlogging.PrintName.paint;
+import net.sf.wlogging.old.PrintName.paint;
+import net.sf.wwqtools.datasv.DataCache;
+import net.sf.wwqtools.datasv.DataFatory;
+import net.sf.wwqtools.share.SetSWTText;
+import net.sf.wwqtools.share.TextStringSave;
 
 public class SqrtCount implements Runnable {
 
-	private static SqrtSave ss = SqrtSave.getSs();
+	// private static SqrtSave ss = SqrtSave.getSs();
+	private static DataCache dc = DataFatory.getClassDataCache(SqrtShell.class);
 
 	public SqrtCount(String text, String s_i) {
-		ss.setText(text);
-		ss.setS_i(s_i);
+		dc.set("text", text);
+		dc.set("s_i", s_i);
 	}
 
 	public SqrtCount() {
@@ -21,13 +26,13 @@ public class SqrtCount implements Runnable {
 	public void run() {
 		setOk(false);
 		try {
-			look(ss.getText(), ss.getS_i());
+			look(dc.getString("text"), dc.getString("s_i"));
 		} catch (IsNotNumberException e) {
-			// TODO Auto-generated catch block
 			System.err.println(e);
 		}
-		BigDecimal num = new BigDecimal(ss.getText());
-		int i = Integer.parseInt(ss.getS_i());
+
+		BigDecimal num = new BigDecimal(dc.getString("text"));
+		int i = Integer.parseInt(dc.getString("s_i"));
 		paint.debug(sqrt(num));
 		paint.debug(i);
 		start(num, i + 1);
@@ -40,6 +45,17 @@ public class SqrtCount implements Runnable {
 		}
 		if (isNumeric(s_i) == false) {
 			throw new IsNotNumberException("text");
+		}
+
+		try {
+			Integer.parseInt(text);
+			Integer.parseInt(s_i);
+		} catch (NumberFormatException e1) {
+			SetSWTText.setText((dc.getDisplay("display")), new TextStringSave(
+					dc.getText("text_0"), "数字多过大无法计算，最大只能为："
+							+ Integer.MAX_VALUE));
+
+			return;
 		}
 	}
 
@@ -61,25 +77,26 @@ public class SqrtCount implements Runnable {
 		setS_sqrt("");
 		BigDecimal nnn = new BigDecimal("1");
 		nnn = run(num, nnn, new BigDecimal("1"));
-		ss.setS_n(String.valueOf(nnn.scale()));
+
+		dc.set("s_n", String.valueOf(nnn.scale()));
 		String s1 = "0";
 		String s2 = ".";
 		String s3 = "1";
 		for (int x = 1; x < (i - 1); x++) {
 			nnn = run(num, nnn, new BigDecimal(s1 + s2 + s3));
 			s3 = "0" + s3;
-			ss.setS_n(String.valueOf(nnn.scale()));
+			dc.set("s_n", String.valueOf(nnn.scale()));
 		}
 		nnn = run(num, nnn, new BigDecimal(s1 + s2 + s3));
 		String s = nnn.toString();
-		ss.setS_n(String.valueOf(nnn.scale()));
+		dc.set("s_n", String.valueOf(nnn.scale()));
 
-		ss.getDisplay().asyncExec(new Runnable() {
-			public void run() {
-				ss.getText_0().setText(ss.getS_sqrt());
-				ss.getText_00().setText(ss.getS_n());
-			}
-		});
+		SetSWTText.setText(
+				(dc.getDisplay("display")),
+				new TextStringSave((dc.getText("text_0")), ((String) dc
+						.get("s_sqrt"))),
+				new TextStringSave((dc.getText("text_00")), ((String) dc
+						.get("s_n"))));
 
 		return s;
 
@@ -89,18 +106,20 @@ public class SqrtCount implements Runnable {
 
 		@Override
 		public void run() {
-			while (ss.isOk() == false) {
-				ss.getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						ss.getText_0().setText(ss.getS_sqrt());
-						ss.getText_00().setText(ss.getS_n());
-					}
-				});
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			while (isOk() == false) {
+				SetSWTText.setText(
+						(dc.getDisplay("display")),
+						new TextStringSave((dc.getText("text_0")), (dc
+								.getString("s_sqrt"))),
+						new TextStringSave((dc.getText("text_00")), (dc
+								.getString("s_n"))));
+
 			}
 
 		}
@@ -150,21 +169,21 @@ public class SqrtCount implements Runnable {
 	}
 
 	private static void setS_sqrt(String s_sqrt) {
-		ss.setS_sqrt(s_sqrt);
+		dc.set("s_sqrt", s_sqrt);
 
 	}
 
 	public static String getS_sqrt() {
-		return ss.getS_sqrt();
+		return dc.getString("s_sqrt");
 	}
 
 	private static void setOk(boolean ok) {
-		ss.setOk(ok);
+		dc.set("ok", ok);
 	}
 
 	public static boolean isOk() {
 
-		return ss.isOk();
+		return dc.getBoolean("ok");
 	}
 
 	// public static void count(String text) {

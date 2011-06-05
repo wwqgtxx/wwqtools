@@ -1,6 +1,6 @@
 package net.sf.wwqtools.calculator;
 
-import net.sf.wlogging.PrintName.paint;
+import net.sf.wlogging.old.PrintName.paint;
 import net.sf.wwqtools.calculator.form.MainForm;
 
 public class Start {

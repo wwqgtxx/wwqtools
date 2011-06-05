@@ -3,7 +3,7 @@ package net.sf.wwqtools.writer;
 import java.io.File;
 import java.io.FileWriter;
 
-import net.sf.wlogging.PrintName.paint;
+import net.sf.wlogging.old.PrintName.paint;
 
 public class FileWrite {
 

@@ -2,22 +2,22 @@ package net.sf.wwqtools.calculator.count;
 
 import java.math.BigInteger;
 
-import net.sf.wlogging.PrintName.paint;
+import net.sf.wlogging.old.PrintName.paint;
 
 public class Count {
 	private Number n = new Number();
 	private Number n2 = new Number();
 
 	/**
-	 * now = 0 = no
+	 * now = 0 =
 	 * 
-	 * now = 1 = plus
+	 * now = 1 = +
 	 * 
-	 * now = 2 = subtract
+	 * now = 2 = -
 	 * 
-	 * now = 3 = ride
+	 * now = 3 = *
 	 * 
-	 * now = 4 = eliminate
+	 * now = 4 = /
 	 * 
 	 */
 	private int now;
@@ -139,6 +139,7 @@ public class Count {
 				paint.debug(r);
 				return r;
 			} catch (ArithmeticException e) {
+				paint.warn(e);
 				return BigInteger.ZERO;
 			}
 

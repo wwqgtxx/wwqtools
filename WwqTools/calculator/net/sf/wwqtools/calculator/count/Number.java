@@ -2,7 +2,7 @@ package net.sf.wwqtools.calculator.count;
 
 import java.math.BigInteger;
 
-import net.sf.wlogging.PrintName.paint;
+import net.sf.wlogging.old.PrintName.paint;
 
 public class Number {
 	public BigInteger a = new BigInteger("0");

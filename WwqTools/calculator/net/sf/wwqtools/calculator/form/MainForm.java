@@ -2,7 +2,7 @@ package net.sf.wwqtools.calculator.form;
 
 import java.math.BigInteger;
 
-import net.sf.wlogging.PrintName.paint;
+import net.sf.wlogging.old.PrintName.paint;
 import net.sf.wwqtools.calculator.about.AboutShell;
 import net.sf.wwqtools.calculator.count.Count;
 import net.sf.wwqtools.pai.PaiShell;

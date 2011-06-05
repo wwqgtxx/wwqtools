@@ -2,15 +2,17 @@ package net.sf.wwqtools.pai;
 
 import java.math.BigDecimal;
 
-import net.sf.wlogging.PrintName.paint;
+import net.sf.wlogging.old.PrintName.paint;
+import net.sf.wwqtools.datasv.DataCache;
+import net.sf.wwqtools.datasv.DataFatory;
 import net.sf.wwqtools.writer.FileWrite;
 
 public class PaiCount implements Runnable {
-	private PaiSave ps = PaiSave.getPs();
+	private DataCache dc = DataFatory.getClassDataCache(PaiShell.class);
 	private FileWrite pw = FileWrite.getWt();
 
 	public BigDecimal setPie(BigDecimal pie) {
-		ps.setPie(pie);
+		dc.set("pie", pie);
 		paint.debug(pie);
 		return pie;
 	}
@@ -22,8 +24,8 @@ public class PaiCount implements Runnable {
 	}
 
 	public void count(Integer i) {
-		paint.debug(ps.getCount());
-		BigDecimal pie = ps.getPie();
+		paint.debug((dc.getInteger("count")));
+		BigDecimal pie = (BigDecimal) dc.get("pie");
 		String rt = "\r\n";
 		String xx = "*************";
 		String st;
@@ -40,8 +42,8 @@ public class PaiCount implements Runnable {
 						+ xx + rt;
 			}
 
-			ps.setS(s);
-			ps.setB(b);
+			dc.set("s", s);
+			dc.set("b", b);
 
 			so = s;
 			paint.debug(b);
@@ -50,8 +52,8 @@ public class PaiCount implements Runnable {
 			st = dt.toString();
 			s = so + rt + b + "¦Ð = " + st;
 
-			ps.setS(s);
-			ps.setB(b);
+			dc.set("s", s);
+			dc.set("b", b);
 
 			if (c >= 99) {
 				so = s;
@@ -61,12 +63,12 @@ public class PaiCount implements Runnable {
 				c = -1;
 			}
 
-			ps.setS(s);
-			ps.setB(b);
+			dc.set("s", s);
+			dc.set("b", b);
 
 		}
-		ps.setS(s);
-		ps.setB(b);
+		dc.set("s", s);
+		dc.set("b", b);
 		try {
 			pw.Writer(s);
 		} catch (Exception e) {
@@ -78,11 +80,14 @@ public class PaiCount implements Runnable {
 
 		@Override
 		public void run() {
-			while (ps.isOk() == false) {
-				ps.getDisplay().asyncExec(new Runnable() {
+			while ((dc.getBoolean("ok")).booleanValue() == false) {
+				(dc.getDisplay("display")).asyncExec(new Runnable() {
 					public void run() {
-						ps.getText_1().setText(String.valueOf(ps.getS()));
-						ps.getText_11().setText(String.valueOf(ps.getB()));
+
+						(dc.getStyledText("text_1")).setText(String
+								.valueOf((String) (dc.get("s"))));
+						(dc.getText("text_11")).setText(String
+								.valueOf((Integer) (dc.get("b"))));
 					}
 				});
 				try {
@@ -98,13 +103,16 @@ public class PaiCount implements Runnable {
 
 	@Override
 	public void run() {
-		ps.setOk(false);
-		count(ps.getCount());
-		ps.setOk(true);
-		ps.getDisplay().asyncExec(new Runnable() {
+		dc.set("ok", false);
+		count(dc.getInteger("count"));
+		dc.set("ok", true);
+		(dc.getDisplay("display")).asyncExec(new Runnable() {
 			public void run() {
-				ps.getText_1().setText(String.valueOf(ps.getS()));
-				ps.getText_11().setText(String.valueOf(ps.getB()));
+
+				(dc.getStyledText("text_1")).setText(String
+						.valueOf((String) (dc.get("s"))));
+				(dc.getText("text_11")).setText(String.valueOf((Integer) (dc
+						.get("b"))));
 			}
 		});
 	}
