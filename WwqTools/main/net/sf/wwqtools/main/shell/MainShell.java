@@ -1,5 +1,7 @@
 package net.sf.wwqtools.main.shell;
 
+import net.sf.wwqtools.system.MySystem;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -69,7 +71,7 @@ public class MainShell {
 		button_2.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.exit(1);
+				MySystem.exit(1);
 			}
 		});
 		button_2.setBounds(398, 205, 80, 27);

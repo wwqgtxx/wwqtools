@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import net.sf.wlogging.old.PrintName.paint;
 import net.sf.wwqtools.datasv.DataCache;
-import net.sf.wwqtools.datasv.DataFatory;
+import net.sf.wwqtools.datasv.DataFactory;
 
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Text;
 import com.swtdesigner.SWTResourceManager;
 
 public class PaiShell extends Shell {
-	private DataCache dc = DataFatory.getMyDataCache();
+	private static DataCache dc = DataFactory.getMyPackageDataCache();
 	private PaiCount c = new PaiCount();
 	private Text text;
 	private StyledText text_1;
@@ -80,6 +80,7 @@ public class PaiShell extends Shell {
 
 					}
 				}
+				dc.set("s", "(is clean)");
 
 			}
 		});

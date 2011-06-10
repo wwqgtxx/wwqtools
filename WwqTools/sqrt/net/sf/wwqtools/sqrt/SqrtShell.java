@@ -1,7 +1,7 @@
 package net.sf.wwqtools.sqrt;
 
 import net.sf.wwqtools.datasv.DataCache;
-import net.sf.wwqtools.datasv.DataFatory;
+import net.sf.wwqtools.datasv.DataFactory;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -18,7 +18,7 @@ public class SqrtShell extends Shell {
 	private Text text;
 	private Text text_1;
 	private Text text_0;
-	private static DataCache dc = DataFatory.getMyDataCache();
+	private static DataCache dc = DataFactory.getMyPackageDataCache();
 	// private static SqrtSave ss = SqrtSave.getSs();
 	private Text text_00;
 

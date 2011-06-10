@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 import net.sf.wlogging.old.PrintName.paint;
 import net.sf.wwqtools.datasv.DataCache;
-import net.sf.wwqtools.datasv.DataFatory;
+import net.sf.wwqtools.datasv.DataFactory;
 import net.sf.wwqtools.writer.FileWrite;
 
 public class PaiCount implements Runnable {
-	private DataCache dc = DataFatory.getClassDataCache(PaiShell.class);
+	private static DataCache dc = DataFactory.getMyPackageDataCache();
 	private FileWrite pw = FileWrite.getWt();
 
 	public BigDecimal setPie(BigDecimal pie) {
@@ -71,6 +71,7 @@ public class PaiCount implements Runnable {
 		dc.set("b", b);
 		try {
 			pw.Writer(s);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

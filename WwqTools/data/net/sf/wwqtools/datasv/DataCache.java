@@ -3,18 +3,27 @@ package net.sf.wwqtools.datasv;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
-public class DataCache {
+public class DataCache implements Iterable<Object> {
 	private Map<String, Object> dataMap = new HashMap<String, Object>();
 	private long num = 0;
+	private final String name;
 
-	protected DataCache() {
+	protected DataCache(String name) {
+		this.name = name;
 		num++;
+	}
+
+	public void clean(boolean is) {
+		if (is) {
+			dataMap.clear();
+		}
 	}
 
 	public void put(String name, Object obj) {
@@ -109,11 +118,21 @@ public class DataCache {
 		}
 	}
 
+	protected Map<String, Object> getMap() {
+		return dataMap;
+	}
+
+	protected void setMap(Map<String, Object> new_dataMap) {
+		dataMap = new_dataMap;
+	}
+
+	@Override
 	public int hashCode() {
 		return new Long(num).hashCode();
 	}
 
-	public boolean equals(DataCache o) {
+	@Override
+	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
 		} else if (o.hashCode() == this.hashCode()) {
@@ -121,5 +140,20 @@ public class DataCache {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public Iterator<Object> iterator() {
+		// TODO Auto-generated method stub
+		return dataMap.values().iterator();
+	}
+
+	@Override
+	public String toString() {
+		return dataMap.toString();
+	}
+
+	public String getName() {
+		return name;
 	}
 }

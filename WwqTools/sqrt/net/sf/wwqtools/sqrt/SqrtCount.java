@@ -4,14 +4,13 @@ import java.math.BigDecimal;
 
 import net.sf.wlogging.old.PrintName.paint;
 import net.sf.wwqtools.datasv.DataCache;
-import net.sf.wwqtools.datasv.DataFatory;
+import net.sf.wwqtools.datasv.DataFactory;
 import net.sf.wwqtools.share.SetSWTText;
 import net.sf.wwqtools.share.TextStringSave;
 
 public class SqrtCount implements Runnable {
 
-	// private static SqrtSave ss = SqrtSave.getSs();
-	private static DataCache dc = DataFatory.getClassDataCache(SqrtShell.class);
+	private static DataCache dc = DataFactory.getMyPackageDataCache();
 
 	public SqrtCount(String text, String s_i) {
 		dc.set("text", text);
@@ -109,7 +108,7 @@ public class SqrtCount implements Runnable {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 			while (isOk() == false) {
