@@ -3,9 +3,12 @@ package net.sf.wwqtools.writer;
 import java.io.File;
 import java.io.FileWriter;
 
-import net.sf.wlogging.old.PrintName.paint;
+import net.sf.wlogging.Logger;
+import net.sf.wlogging.LoggerFactory;
 
 public class FileWrite {
+	private static Logger paint = LoggerFactory.SHOW_All_MESSAGE_FACTORY
+			.getLogger();
 
 	private FileWrite() {
 	}

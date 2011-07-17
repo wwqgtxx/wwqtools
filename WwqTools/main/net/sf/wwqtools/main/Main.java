@@ -1,9 +1,12 @@
 package net.sf.wwqtools.main;
 
-import net.sf.wlogging.old.PrintName.paint;
+import net.sf.wlogging.Logger;
+import net.sf.wlogging.LoggerFactory;
 import net.sf.wwqtools.main.shell.MainShell;
 
 public class Main implements Runnable {
+	private static Logger paint = LoggerFactory.SHOW_All_MESSAGE_FACTORY
+			.getLogger();
 
 	public Main() {
 	}

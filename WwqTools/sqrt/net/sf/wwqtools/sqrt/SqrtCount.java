@@ -2,7 +2,8 @@ package net.sf.wwqtools.sqrt;
 
 import java.math.BigDecimal;
 
-import net.sf.wlogging.old.PrintName.paint;
+import net.sf.wlogging.Logger;
+import net.sf.wlogging.LoggerFactory;
 import net.sf.wwqtools.datasv.DataCache;
 import net.sf.wwqtools.datasv.DataFactory;
 import net.sf.wwqtools.share.SetSWTText;
@@ -10,6 +11,8 @@ import net.sf.wwqtools.share.TextStringSave;
 
 public class SqrtCount implements Runnable {
 
+	private static Logger paint = LoggerFactory.SHOW_All_MESSAGE_FACTORY
+			.getLogger();
 	private static DataCache dc = DataFactory.getMyPackageDataCache();
 
 	public SqrtCount(String text, String s_i) {

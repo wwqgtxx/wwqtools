@@ -1,6 +1,6 @@
 package net.sf.wwqtools.system;
 
-import net.sf.wlogging.LogSystem;
+import net.sf.wlogging.LoggerFactory;
 import net.sf.wwqtools.datasv.DataFactory;
 
 public class MySystem {
@@ -9,7 +9,8 @@ public class MySystem {
 	}
 
 	public static void exit(int status) {
-		LogSystem.paint.info(DataFactory.getMessage());
+		LoggerFactory.SHOW_All_MESSAGE_FACTORY.getLogger().info(
+				DataFactory.getMessage());
 		System.exit(status);
 	}
 

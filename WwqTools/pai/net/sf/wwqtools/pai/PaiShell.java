@@ -2,7 +2,8 @@ package net.sf.wwqtools.pai;
 
 import java.math.BigDecimal;
 
-import net.sf.wlogging.old.PrintName.paint;
+import net.sf.wlogging.Logger;
+import net.sf.wlogging.LoggerFactory;
 import net.sf.wwqtools.datasv.DataCache;
 import net.sf.wwqtools.datasv.DataFactory;
 
@@ -23,6 +24,8 @@ import org.eclipse.swt.widgets.Text;
 import com.swtdesigner.SWTResourceManager;
 
 public class PaiShell extends Shell {
+	private static Logger paint = LoggerFactory.SHOW_All_MESSAGE_FACTORY
+			.getLogger();
 	private static DataCache dc = DataFactory.getMyPackageDataCache();
 	private PaiCount c = new PaiCount();
 	private Text text;
