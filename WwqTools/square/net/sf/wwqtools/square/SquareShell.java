@@ -2,10 +2,11 @@ package net.sf.wwqtools.square;
 
 import java.math.BigDecimal;
 
+import net.sf.wlogging.LoggerFactory;
+import net.sf.wwqtools.datasv.DataCache;
+import net.sf.wwqtools.datasv.DataFactory;
 import net.sf.wwqtools.pai.PaiCount;
 
-import org.eclipse.core.databinding.observable.Realm;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -24,6 +25,7 @@ public class SquareShell extends Shell {
 	private StyledText text_1;
 	private Text txtDpaitxt;
 	private Text txtPaitxt;
+	private static DataCache dataCache = DataFactory.getMyPackageDataCache();
 
 	/**
 	 * Launch the application.
@@ -31,25 +33,51 @@ public class SquareShell extends Shell {
 	 * @param args
 	 */
 
-	public static void show() {
-		Display display = Display.getDefault();
-		Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {
+	public static void show(final String[] args) {
+		LoggerFactory.SHOW_All_MESSAGE_FACTORY.getLogger().start();
+		new Thread(new Runnable() {
+
+			@Override
 			public void run() {
-				try {
-					Display display = Display.getDefault();
-					SquareShell shell = new SquareShell(display);
-					shell.open();
-					shell.layout();
-					while (!shell.isDisposed()) {
-						if (!display.readAndDispatch()) {
-							display.sleep();
-						}
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				show0(args);
+			}
+		}).start();
+	}
+
+	public static void show0(String[] args) {
+
+		try {
+			Display display = dataCache.newDefaultDisplay();
+			SquareShell shell = new SquareShell(display);
+			shell.open();
+			shell.layout();
+			while (!shell.isDisposed()) {
+				if (!display.readAndDispatch()) {
+					display.sleep();
 				}
 			}
-		});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable()
+		// {
+		// public void run() {
+		// try {
+		// Display display = Display.getDefault();
+		// SquareShell shell = new SquareShell(display);
+		// shell.open();
+		// shell.layout();
+		// while (!shell.isDisposed()) {
+		// if (!display.readAndDispatch()) {
+		// display.sleep();
+		// }
+		// }
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+		// }
+		// });
 	}
 
 	/**

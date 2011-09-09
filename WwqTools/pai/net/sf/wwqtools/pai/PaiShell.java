@@ -7,8 +7,6 @@ import net.sf.wlogging.LoggerFactory;
 import net.sf.wwqtools.datasv.DataCache;
 import net.sf.wwqtools.datasv.DataFactory;
 
-import org.eclipse.core.databinding.observable.Realm;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -26,7 +24,7 @@ import com.swtdesigner.SWTResourceManager;
 public class PaiShell extends Shell {
 	private static Logger paint = LoggerFactory.SHOW_All_MESSAGE_FACTORY
 			.getLogger();
-	private static DataCache dc = DataFactory.getMyPackageDataCache();
+	private static DataCache dataCache = DataFactory.getMyPackageDataCache();
 	private PaiCount c = new PaiCount();
 	private Text text;
 	private StyledText text_1;
@@ -40,26 +38,33 @@ public class PaiShell extends Shell {
 	 * @param args
 	 */
 
-	public static void show() {
+	public static void show(final String[] args) {
 		paint.start();
-		Display display = Display.getDefault();
-		Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {
+		new Thread(new Runnable() {
+
+			@Override
 			public void run() {
-				try {
-					Display display = Display.getDefault();
-					PaiShell shell = new PaiShell(display);
-					shell.open();
-					shell.layout();
-					while (!shell.isDisposed()) {
-						if (!display.readAndDispatch()) {
-							display.sleep();
-						}
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				show0(args);
+			}
+		}).start();
+	}
+
+	private static void show0(String[] args) {
+		try {
+			Display display = dataCache.newDefaultDisplay();
+
+			PaiShell shell = new PaiShell(display);
+			shell.open();
+			shell.layout();
+			while (!shell.isDisposed()) {
+				if (!display.readAndDispatch()) {
+					display.sleep();
 				}
 			}
-		});
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -74,21 +79,21 @@ public class PaiShell extends Shell {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void shellClosed(ShellEvent e) {
-				if (dc.getThread("thread") != null
-						&& dc.getThread("threadPaint") != null) {
-					if ((dc.getThread("thread")).isAlive()
-							&& (dc.getThread("threadPaint")).isAlive()) {
-						(dc.getThread("thread")).stop();
-						(dc.getThread("threadPaint")).stop();
+				if (dataCache.getThread("thread") != null
+						&& dataCache.getThread("threadPaint") != null) {
+					if ((dataCache.getThread("thread")).isAlive()
+							&& (dataCache.getThread("threadPaint")).isAlive()) {
+						(dataCache.getThread("thread")).stop();
+						(dataCache.getThread("threadPaint")).stop();
 
 					}
 				}
-				dc.set("s", "(is clean)");
+				dataCache.set("s", "(is clean)");
 
 			}
 		});
 
-		dc.put("display", display);
+		dataCache.put("display", display);
 
 		c.setPie(new BigDecimal("3.14"));
 
@@ -121,8 +126,8 @@ public class PaiShell extends Shell {
 		text_11 = new Text(this, SWT.BORDER);
 		text_11.setBounds(10, 262, 73, 23);
 
-		dc.put("text_1", text_1);
-		dc.put("text_11", text_11);
+		dataCache.put("text_1", text_1);
+		dataCache.put("text_11", text_11);
 
 		Button button = new Button(this, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
@@ -292,18 +297,18 @@ public class PaiShell extends Shell {
 			paint.debug(s);
 			paint.debug(i);
 
-			dc.put("count", i);
+			dataCache.put("count", i);
 			Thread thread = new Thread(new PaiCount());
 			thread.setDaemon(true);
 			thread.setPriority(Thread.MIN_PRIORITY);
 			thread.start();
-			dc.put("thread", thread);
+			dataCache.put("thread", thread);
 
 			Thread threadPaint = new Thread(new PaiCount().new PaintResult());
 			threadPaint.setDaemon(true);
 			threadPaint.start();
 			threadPaint.setPriority(Thread.MIN_PRIORITY);
-			dc.put("threadPaint", threadPaint);
+			dataCache.put("threadPaint", threadPaint);
 		} catch (java.lang.NumberFormatException e) {
 			text_1.setText("超出运算范围，最大" + Integer.MAX_VALUE);
 		}

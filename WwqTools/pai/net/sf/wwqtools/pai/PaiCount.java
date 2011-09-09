@@ -85,7 +85,7 @@ public class PaiCount implements Runnable {
 		@Override
 		public void run() {
 			while ((dc.getBoolean("ok")).booleanValue() == false) {
-				(dc.getDisplay("display")).asyncExec(new Runnable() {
+				(dc.getDefaultDisplay()).asyncExec(new Runnable() {
 					public void run() {
 
 						(dc.getStyledText("text_1")).setText(String
@@ -110,7 +110,7 @@ public class PaiCount implements Runnable {
 		dc.set("ok", false);
 		count(dc.getInteger("count"));
 		dc.set("ok", true);
-		(dc.getDisplay("display")).asyncExec(new Runnable() {
+		(dc.getDefaultDisplay()).asyncExec(new Runnable() {
 			public void run() {
 
 				(dc.getStyledText("text_1")).setText(String

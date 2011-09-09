@@ -53,8 +53,8 @@ public class SqrtCount implements Runnable {
 			Integer.parseInt(text);
 			Integer.parseInt(s_i);
 		} catch (NumberFormatException e1) {
-			SetSWTText.setText((dc.getDisplay("display")), new TextStringSave(
-					dc.getText("text_0"), "数字多过大无法计算，最大只能为："
+			SetSWTText.setText((dc.getDefaultDisplay()),
+					new TextStringSave(dc.getText("text_0"), "数字多过大无法计算，最大只能为："
 							+ Integer.MAX_VALUE));
 
 			return;
@@ -94,7 +94,7 @@ public class SqrtCount implements Runnable {
 		dc.set("s_n", String.valueOf(nnn.scale()));
 
 		SetSWTText.setText(
-				(dc.getDisplay("display")),
+				(dc.getDefaultDisplay()),
 				new TextStringSave((dc.getText("text_0")), ((String) dc
 						.get("s_sqrt"))),
 				new TextStringSave((dc.getText("text_00")), ((String) dc
@@ -116,7 +116,7 @@ public class SqrtCount implements Runnable {
 			}
 			while (isOk() == false) {
 				SetSWTText.setText(
-						(dc.getDisplay("display")),
+						(dc.getDefaultDisplay()),
 						new TextStringSave((dc.getText("text_0")), (dc
 								.getString("s_sqrt"))),
 						new TextStringSave((dc.getText("text_00")), (dc

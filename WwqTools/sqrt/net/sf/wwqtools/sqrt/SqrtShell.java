@@ -1,5 +1,6 @@
 package net.sf.wwqtools.sqrt;
 
+import net.sf.wlogging.LoggerFactory;
 import net.sf.wwqtools.datasv.DataCache;
 import net.sf.wwqtools.datasv.DataFactory;
 
@@ -18,7 +19,7 @@ public class SqrtShell extends Shell {
 	private Text text;
 	private Text text_1;
 	private Text text_0;
-	private static DataCache dc = DataFactory.getMyPackageDataCache();
+	private static DataCache dataCache = DataFactory.getMyPackageDataCache();
 	// private static SqrtSave ss = SqrtSave.getSs();
 	private Text text_00;
 
@@ -27,9 +28,21 @@ public class SqrtShell extends Shell {
 	 * 
 	 * @param args
 	 */
-	public static void show(String args[]) {
+
+	public static void show(final String[] args) {
+		LoggerFactory.SHOW_All_MESSAGE_FACTORY.getLogger().start();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				show0(args);
+			}
+		}).start();
+	}
+
+	public static void show0(String args[]) {
 		try {
-			Display display = Display.getDefault();
+			Display display = dataCache.newDefaultDisplay();
 			SqrtShell shell = new SqrtShell(display);
 			shell.open();
 			shell.layout();
@@ -54,19 +67,18 @@ public class SqrtShell extends Shell {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void shellClosed(ShellEvent e) {
-				if (dc.getThread("thread") != null
-						&& dc.getThread("threadPaint") != null) {
-					if ((dc.getThread("thread")).isAlive()
-							&& (dc.getThread("threadPaint")).isAlive()) {
-						(dc.getThread("thread")).stop();
-						(dc.getThread("threadPaint")).stop();
+				if (dataCache.getThread("thread") != null
+						&& dataCache.getThread("threadPaint") != null) {
+					if ((dataCache.getThread("thread")).isAlive()
+							&& (dataCache.getThread("threadPaint")).isAlive()) {
+						(dataCache.getThread("thread")).stop();
+						(dataCache.getThread("threadPaint")).stop();
 
 					}
 				}
 
 			}
 		});
-		dc.put("display", display);
 
 		text = new Text(this, SWT.BORDER);
 		text.setText("2");
@@ -84,8 +96,8 @@ public class SqrtShell extends Shell {
 		text_00.setText("\u4F4D\u6570");
 		text_00.setBounds(11, 265, 132, 23);
 
-		dc.put("text_0", text_0);
-		dc.put("text_00", text_00);
+		dataCache.put("text_0", text_0);
+		dataCache.put("text_00", text_00);
 
 		Button button = new Button(this, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
@@ -104,9 +116,9 @@ public class SqrtShell extends Shell {
 				Thread threadPaint = new Thread(
 						new SqrtCount().new PaintResult());
 
-				dc.put("thread", thread);
-				dc.put("threadPaint", threadPaint);
-				dc.put("ok", false);
+				dataCache.put("thread", thread);
+				dataCache.put("threadPaint", threadPaint);
+				dataCache.put("ok", false);
 
 				thread.setDaemon(true);
 				thread.start();

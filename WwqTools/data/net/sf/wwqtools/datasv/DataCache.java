@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Text;
 
 public class DataCache implements Iterable<Object> {
 	private Map<String, Object> dataMap = new HashMap<String, Object>();
+	private Display display = null;
 	private long num = 0;
 	private final String name;
 
@@ -68,6 +69,18 @@ public class DataCache implements Iterable<Object> {
 		} catch (ClassCastException e) {
 			return null;
 		}
+	}
+
+	public Display newDefaultDisplay() {
+		display = new Display();
+		return display;
+	}
+
+	public Display getDefaultDisplay() {
+		if (display != null) {
+			return display;
+		}
+		throw new NullPointerException("Please call \"newDefaultDisplay()\"");
 	}
 
 	public Text getText(String name) {

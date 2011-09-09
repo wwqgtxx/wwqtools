@@ -1,5 +1,8 @@
 package net.sf.wwqtools.main.shell;
 
+import net.sf.wlogging.LoggerFactory;
+import net.sf.wwqtools.datasv.DataCache;
+import net.sf.wwqtools.datasv.DataFactory;
 import net.sf.wwqtools.system.MySystem;
 
 import org.eclipse.swt.SWT;
@@ -12,6 +15,7 @@ import org.eclipse.swt.widgets.Shell;
 
 public class MainShell {
 	public static Color red;
+	private DataCache dataCache = DataFactory.getMyPackageDataCache();
 
 	/**
 	 * Open the window.
@@ -19,7 +23,20 @@ public class MainShell {
 	 * @wbp.parser.entryPoint
 	 */
 	public void open(final String[] args) {
-		Display display = Display.getDefault();
+		LoggerFactory.SHOW_All_MESSAGE_FACTORY.getLogger().start();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				open0(args);
+			}
+		}).start();
+
+	}
+
+	public void open0(final String[] args) {
+
+		Display display = dataCache.newDefaultDisplay();
 		red = display.getSystemColor(SWT.COLOR_RED);
 
 		final Shell shell = new Shell();
@@ -51,7 +68,7 @@ public class MainShell {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				net.sf.wwqtools.calculator.Start.open(args);
+				net.sf.wwqtools.calculator.CalculatorShell.show(args);
 			}
 		});
 		button.setBounds(27, 45, 80, 27);
@@ -61,7 +78,7 @@ public class MainShell {
 		button_1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				net.sf.wwqtools.pai.PaiShell.show();
+				net.sf.wwqtools.pai.PaiShell.show(args);
 			}
 		});
 		button_1.setBounds(119, 45, 80, 27);
@@ -100,7 +117,7 @@ public class MainShell {
 		button_5.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				net.sf.wwqtools.square.SquareShell.show();
+				net.sf.wwqtools.square.SquareShell.show(args);
 			}
 		});
 		button_5.setBounds(27, 85, 80, 27);
@@ -115,5 +132,6 @@ public class MainShell {
 				display.sleep();
 			}
 		}
+
 	}
 }

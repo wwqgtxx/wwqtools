@@ -1,11 +1,12 @@
-package net.sf.wwqtools.calculator.form;
+package net.sf.wwqtools.calculator;
 
 import java.math.BigInteger;
 
+import net.sf.wlogging.LoggerFactory;
 import net.sf.wlogging.old.PrintName.paint;
-import net.sf.wwqtools.calculator.about.AboutShell;
 import net.sf.wwqtools.calculator.count.Count;
-import net.sf.wwqtools.pai.PaiShell;
+import net.sf.wwqtools.datasv.DataCache;
+import net.sf.wwqtools.datasv.DataFactory;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -15,74 +16,54 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.swtdesigner.SWTResourceManager;
 
-public class MainForm {
-	private FormToolkit formToolkit = new FormToolkit(Display.getDefault());
-	private Display display = Display.getDefault();
-	private Shell shlCalculator = new Shell();
+public class CalculatorShell extends Shell {
+	private static DataCache dataCache = DataFactory.getMyPackageDataCache();
 	private Text text;
 	private Count c1 = new Count();
 
-	/**
-	 * Launch the application.
-	 * 
-	 * @param args
-	 * @wbp.parser.entryPolong
-	 * @wbp.parser.entryPoint
-	 */
-	public void show() {
-		shlCalculator.setImage(SWTResourceManager.getImage(MainForm.class,
-				"/net/sf/wwqtools/calculator/about/iocs/calc.PNG"));
+	public static void show(final String[] args) {
+		LoggerFactory.SHOW_All_MESSAGE_FACTORY.getLogger().start();
+		new Thread(new Runnable() {
 
-		shlCalculator.setSize(286, 351);
-		shlCalculator.setText("\u8BA1\u7B97\u5668");
-
-		Menu menu = new Menu(shlCalculator, SWT.BAR);
-		shlCalculator.setMenuBar(menu);
-
-		MenuItem menuItem = new MenuItem(menu, SWT.CASCADE);
-		menuItem.setText("New SubMenu");
-
-		Menu menu_1 = new Menu(menuItem);
-		menuItem.setMenu(menu_1);
-
-		MenuItem menuItem_1 = new MenuItem(menu, SWT.CASCADE);
-		menuItem_1.setText("\u5C0F\u5DE5\u5177");
-
-		Menu menu_2 = new Menu(menuItem_1);
-		menuItem_1.setMenu(menu_2);
-
-		MenuItem menuItem_2 = new MenuItem(menu_2, SWT.NONE);
-		menuItem_2.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				PaiShell.show();
+			public void run() {
+				show0(args);
 			}
-		});
-		menuItem_2.setText("\u5C0F\u5DE5\u5177-\u8BA1\u7B97\u03C0");
+		}).start();
 
-		MenuItem mntmh = new MenuItem(menu, SWT.CASCADE);
-		mntmh.setText("\u5E2E\u52A9(&H)");
+	}
 
-		Menu menu_4 = new Menu(mntmh);
-		mntmh.setMenu(menu_4);
+	private static void show0(String[] args) {
+		try {
+			Display display = dataCache.newDefaultDisplay();
 
-		MenuItem menuItem_3 = new MenuItem(menu_4, SWT.NONE);
-		menuItem_3.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				nabout();
+			CalculatorShell shell = new CalculatorShell(display);
+			shell.open();
+			shell.layout();
+			while (!shell.isDisposed()) {
+				if (!display.readAndDispatch()) {
+					display.sleep();
+				}
 			}
-		});
-		menuItem_3.setText("\u5173\u4E8E");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-		Button b7 = formToolkit.createButton(shlCalculator, "7", SWT.NONE);
+	public CalculatorShell(Display display) {
+		super(display, SWT.SHELL_TRIM);
+
+		setSize(286, 351);
+		setText("\u8BA1\u7B97\u5668");
+
+		Button b7 = new Button(this, SWT.NONE);
+		b7.setText("7");
 		b7.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -91,7 +72,8 @@ public class MainForm {
 		});
 		b7.setBounds(10, 67, 43, 39);
 
-		Button b8 = formToolkit.createButton(shlCalculator, "8", SWT.NONE);
+		Button b8 = new Button(this, SWT.NONE);
+		b8.setText("8");
 		b8.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -100,7 +82,8 @@ public class MainForm {
 		});
 		b8.setBounds(69, 65, 43, 42);
 
-		Button b9 = formToolkit.createButton(shlCalculator, "9", SWT.NONE);
+		Button b9 = new Button(this, SWT.NONE);
+		b9.setText("9");
 		b9.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -109,7 +92,7 @@ public class MainForm {
 		});
 		b9.setBounds(124, 64, 43, 44);
 
-		Button b4 = new Button(shlCalculator, SWT.NONE);
+		Button b4 = new Button(this, SWT.NONE);
 		b4.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -117,10 +100,9 @@ public class MainForm {
 			}
 		});
 		b4.setBounds(10, 112, 43, 39);
-		formToolkit.adapt(b4, true, true);
 		b4.setText("4");
 
-		Button b5 = new Button(shlCalculator, SWT.NONE);
+		Button b5 = new Button(this, SWT.NONE);
 		b5.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -129,9 +111,8 @@ public class MainForm {
 		});
 		b5.setBounds(69, 113, 43, 39);
 		b5.setText("5");
-		formToolkit.adapt(b5, true, true);
 
-		Button b6 = new Button(shlCalculator, SWT.NONE);
+		Button b6 = new Button(this, SWT.NONE);
 		b6.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -140,9 +121,8 @@ public class MainForm {
 		});
 		b6.setBounds(124, 114, 43, 39);
 		b6.setText("6");
-		formToolkit.adapt(b6, true, true);
 
-		Button b1 = new Button(shlCalculator, SWT.NONE);
+		Button b1 = new Button(this, SWT.NONE);
 		b1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -151,9 +131,8 @@ public class MainForm {
 		});
 		b1.setBounds(10, 157, 43, 39);
 		b1.setText("1");
-		formToolkit.adapt(b1, true, true);
 
-		Button b2 = new Button(shlCalculator, SWT.NONE);
+		Button b2 = new Button(this, SWT.NONE);
 		b2.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -162,9 +141,8 @@ public class MainForm {
 		});
 		b2.setBounds(69, 158, 43, 39);
 		b2.setText("2");
-		formToolkit.adapt(b2, true, true);
 
-		Button b3 = new Button(shlCalculator, SWT.NONE);
+		Button b3 = new Button(this, SWT.NONE);
 		b3.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -173,9 +151,8 @@ public class MainForm {
 		});
 		b3.setBounds(124, 157, 43, 39);
 		b3.setText("3");
-		formToolkit.adapt(b3, true, true);
 
-		Button b0 = new Button(shlCalculator, SWT.NONE);
+		Button b0 = new Button(this, SWT.NONE);
 		b0.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -184,14 +161,12 @@ public class MainForm {
 		});
 		b0.setBounds(10, 202, 43, 39);
 		b0.setText("0");
-		formToolkit.adapt(b0, true, true);
 
-		Button button_10 = new Button(shlCalculator, SWT.NONE);
+		Button button_10 = new Button(this, SWT.NONE);
 		button_10.setBounds(69, 202, 43, 39);
 		button_10.setText("New Button");
-		formToolkit.adapt(button_10, true, true);
 
-		Button bdot = new Button(shlCalculator, SWT.NONE);
+		Button bdot = new Button(this, SWT.NONE);
 		bdot.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -200,10 +175,8 @@ public class MainForm {
 		});
 		bdot.setBounds(124, 202, 43, 39);
 		bdot.setText(".");
-		formToolkit.adapt(bdot, true, true);
 
-		text = formToolkit.createText(shlCalculator, "", SWT.READ_ONLY
-				| SWT.RIGHT);
+		text = new Text(this, SWT.BORDER | SWT.READ_ONLY | SWT.RIGHT);
 		text.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -214,7 +187,7 @@ public class MainForm {
 
 		text.setBounds(10, 10, 258, 23);
 
-		Button bCE = new Button(shlCalculator, SWT.NONE);
+		Button bCE = new Button(this, SWT.NONE);
 		bCE.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -222,10 +195,9 @@ public class MainForm {
 			}
 		});
 		bCE.setBounds(10, 39, 72, 22);
-		formToolkit.adapt(bCE, true, true);
 		bCE.setText("CE");
 
-		Button bv = new Button(shlCalculator, SWT.NONE);
+		Button bv = new Button(this, SWT.NONE);
 		bv.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -235,9 +207,8 @@ public class MainForm {
 		});
 		bv.setBounds(107, 39, 60, 22);
 		bv.setText("\u2192");
-		formToolkit.adapt(bv, true, true);
 
-		Button bplus = new Button(shlCalculator, SWT.NONE);
+		Button bplus = new Button(this, SWT.NONE);
 		bplus.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -246,9 +217,8 @@ public class MainForm {
 		});
 		bplus.setBounds(189, 67, 30, 84);
 		bplus.setText("+");
-		formToolkit.adapt(bplus, true, true);
 
-		Button bsubtract = new Button(shlCalculator, SWT.NONE);
+		Button bsubtract = new Button(this, SWT.NONE);
 		bsubtract.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -257,9 +227,8 @@ public class MainForm {
 		});
 		bsubtract.setBounds(189, 157, 30, 84);
 		bsubtract.setText("-");
-		formToolkit.adapt(bsubtract, true, true);
 
-		Button bride = new Button(shlCalculator, SWT.NONE);
+		Button bride = new Button(this, SWT.NONE);
 		bride.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -268,9 +237,8 @@ public class MainForm {
 		});
 		bride.setBounds(225, 67, 30, 84);
 		bride.setText("\u00D7");
-		formToolkit.adapt(bride, true, true);
 
-		Button beliminate = new Button(shlCalculator, SWT.NONE);
+		Button beliminate = new Button(this, SWT.NONE);
 		beliminate.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -279,9 +247,8 @@ public class MainForm {
 		});
 		beliminate.setBounds(225, 157, 30, 84);
 		beliminate.setText("\u00F7");
-		formToolkit.adapt(beliminate, true, true);
 
-		Button bequrs = new Button(shlCalculator, SWT.NONE);
+		Button bequrs = new Button(this, SWT.NONE);
 		bequrs.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -290,23 +257,17 @@ public class MainForm {
 		});
 		bequrs.setBounds(189, 39, 66, 22);
 		bequrs.setText("=");
-		formToolkit.adapt(bequrs, true, true);
 
-		Label label = new Label(shlCalculator, SWT.NONE);
+		Label label = new Label(this, SWT.NONE);
 		label.setBackground(SWTResourceManager
 				.getColor(SWT.COLOR_WIDGET_BACKGROUND));
-		label.setBounds(10, 263, 245, 12);
-		formToolkit.adapt(label, true, true);
-		label.setText("\u738B\u4F1F\u5F3A\u5236\u4F5C  1.1\u7248     \u7248\u6743\u6240\u6709 \u00A92009-2010");
+		label.setBounds(10, 263, 245, 40);
+		label.setText("\u738B\u4F1F\u5F3A\u5236\u4F5C  1.1\u7248     \u7248\u6743\u6240\u6709 \u00A92009-2011");
+	}
 
-		shlCalculator.open();
-		shlCalculator.layout();
-
-		while (!shlCalculator.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
-			}
-		}
+	@Override
+	protected void checkSubclass() {
+		// Disable the check that prevents subclassing of SWT components
 	}
 
 	private void sh(BigInteger n) {
@@ -391,10 +352,6 @@ public class MainForm {
 
 	private void bequrs() {
 		sh(c1.equrs());
-	}
-
-	private void nabout() {
-		AboutShell.show();
 	}
 
 	private void textkeyPressed(KeyEvent e) {
